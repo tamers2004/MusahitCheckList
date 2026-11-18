@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ClipboardList, Clock, CheckCircle2, TrendingUp } from 'lucide-react';
 import { Installation } from '@/types/installation';
 import { cn } from '@/components/ui/cn';

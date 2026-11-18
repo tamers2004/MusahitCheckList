@@ -1,8 +1,4 @@
 import {
-  ChecklistSection,
-  ChecklistTask,
-} from '@/types/checklist';
-import {
   InstallationType,
   WorkstationCount,
   GarageClassification,
@@ -70,9 +66,9 @@ export const getSectionTitle = (sectionId: string): string => {
 export const getTaskWarnings = (
   taskId: string,
   completedTaskIds: Set<string>,
-  installationType: InstallationType,
-  workstationCount: WorkstationCount,
-  garageClassification: GarageClassification,
+  _installationType: InstallationType,
+  _workstationCount: WorkstationCount,
+  _garageClassification: GarageClassification,
 ): string[] => {
   const task = CHECKLIST_TASKS[taskId];
   if (!task) return [];

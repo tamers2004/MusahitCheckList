@@ -3,7 +3,6 @@ import {
   Installation,
   TaskProgress,
   ApplicationSettings,
-  ExportData,
 } from '@/types/installation';
 
 export class MusahitDatabase extends Dexie {

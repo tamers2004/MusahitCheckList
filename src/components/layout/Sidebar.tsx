@@ -1,6 +1,5 @@
-import { NavLink, useLocation } from 'react-router-dom';
-import { useState } from 'react';
-import { Menu, X, LayoutDashboard, FileCheck, History, Settings, LogOut } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+import { LayoutDashboard, FileCheck, History, Settings, LogOut, X } from 'lucide-react';
 import { cn } from '@/components/ui/cn';
 
 const navigation = [
@@ -10,46 +9,57 @@ const navigation = [
   { name: 'הגדרות', href: '/settings', icon: Settings },
 ];
 
-export const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const location = useLocation();
+interface SidebarProps {
+  open: boolean;
+  onClose: () => void;
+}
 
+export const Sidebar = ({ open, onClose }: SidebarProps) => {
   return (
-    <aside className="fixed inset-y-0 right-0 z-40 w-64 bg-card border-l border-border transition-all duration-300 transform translate-x-full lg:translate-x-0">
-      <div className="flex h-full flex-col">
+    <>
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+      <aside
+        className={cn(
+          'fixed inset-y-0 right-0 z-50 flex w-64 shrink-0 flex-col border-l border-border bg-card transition-transform duration-300 lg:static lg:z-auto lg:translate-x-0',
+          open ? 'translate-x-0' : 'translate-x-full',
+        )}
+      >
         <div className="flex h-16 items-center justify-between px-6">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-bold text-xs">מ</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <span className="text-xs font-bold text-white">מ</span>
             </div>
-            <span className="font-bold text-lg tracking-tight">מוסהיט</span>
+            <span className="text-lg font-bold tracking-tight">מוסהיט</span>
           </div>
           <button
-            onClick={() => setIsCollapsed((prev) => !prev)}
-            className="lg:hidden p-2 text-muted-foreground hover:bg-accent rounded-md"
-            aria-label="פתח תפריט"
+            onClick={onClose}
+            className="rounded-md p-2 text-muted-foreground hover:bg-accent lg:hidden"
+            aria-label="סגור תפריט"
           >
-            {isCollapsed ? (
-              <Menu className="h-5 w-5" />
-            ) : (
-              <X className="h-5 w-5" />
-            )}
+            <X className="h-5 w-5" />
           </button>
         </div>
 
-        <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
+        <nav className="flex-1 space-y-1 overflow-y-auto p-4">
           {navigation.map((item) => {
             const Icon = item.icon;
-            const isActive = location.pathname === item.href;
             return (
               <NavLink
                 key={item.name}
                 to={item.href}
-                className={({ isActive: active }) =>
+                end={item.href === '/'}
+                onClick={onClose}
+                className={({ isActive }) =>
                   cn(
-                    'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
-                    active
-                      ? 'bg-primary/10 text-primary border-l-2 border-primary'
+                    'flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors',
+                    isActive
+                      ? 'border-l-2 border-primary bg-primary/10 text-primary'
                       : 'text-muted-foreground hover:bg-accent/50 hover:text-foreground',
                   )
                 }
@@ -61,13 +71,13 @@ export const Sidebar = () => {
           })}
         </nav>
 
-        <div className="p-4 border-t border-border">
-          <button className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:bg-accent/50 hover:text-foreground w-full">
+        <div className="border-t border-border p-4">
+          <div className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-muted-foreground">
             <LogOut className="h-5 w-5" />
-            התנתקות
-          </button>
+            <span>נתונים מקומיים בלבד</span>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { cn } from './cn';
 
 export interface DialogProps {
   open: boolean;

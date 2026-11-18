@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, FileCheck, History, Settings, LogOut, X } from 'lucide-react';
+import { LayoutDashboard, FileCheck, History, Settings, X } from 'lucide-react';
 import { cn } from '@/components/ui/cn';
 
 const navigation = [
@@ -70,13 +70,6 @@ export const Sidebar = ({ open, onClose }: SidebarProps) => {
             );
           })}
         </nav>
-
-        <div className="border-t border-border p-4">
-          <div className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm text-muted-foreground">
-            <LogOut className="h-5 w-5" />
-            <span>נתונים מקומיים בלבד</span>
-          </div>
-        </div>
       </aside>
     </>
   );

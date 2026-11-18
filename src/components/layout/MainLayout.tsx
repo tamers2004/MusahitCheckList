@@ -14,9 +14,11 @@ export const MainLayout = () => {
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           <Outlet />
         </main>
-        <footer className="border-t border-border px-4 py-3 text-center text-xs text-muted-foreground lg:px-6">
-          פותח על ידי{' '}
-          <span className="ltr font-medium text-foreground">Tamer Satel</span>
+        <footer className="flex items-center justify-center border-t border-border px-4 py-3 text-center text-xs text-muted-foreground lg:px-6">
+          <span>
+            פותח על ידי{' '}
+            <span className="ltr font-medium text-foreground">Tamer Satel</span>
+          </span>
         </footer>
       </div>
     </div>

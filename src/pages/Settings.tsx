@@ -5,13 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { db } from '@/db/database';
+import { applyTheme, getStoredTheme, type Theme } from '@/utils/theme';
 
 export const Settings = () => {
   const { settings, loadSettings, saveSettings, exportData, importData, isLoading } =
     useInstallationStore();
 
   const [technician, setTechnician] = useState('');
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<Theme>(() => getStoredTheme());
   const [message, setMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -22,9 +23,13 @@ export const Settings = () => {
   useEffect(() => {
     if (settings) {
       setTechnician(settings.defaultTechnician ?? '');
-      setTheme(settings.theme ?? 'dark');
     }
   }, [settings]);
+
+  const handleThemeChange = (nextTheme: Theme) => {
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
+  };
 
   const handleSave = async () => {
     await saveSettings({ defaultTechnician: technician, theme });
@@ -103,7 +108,9 @@ export const Settings = () => {
             <label className="block text-sm font-medium">ערכת נושא</label>
             <div className="flex gap-2">
               <button
-                onClick={() => setTheme('dark')}
+                type="button"
+                onClick={() => handleThemeChange('dark')}
+                aria-pressed={theme === 'dark'}
                 className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition ${
                   theme === 'dark'
                     ? 'border-primary bg-primary/10 text-primary'
@@ -114,7 +121,9 @@ export const Settings = () => {
                 כהה
               </button>
               <button
-                onClick={() => setTheme('light')}
+                type="button"
+                onClick={() => handleThemeChange('light')}
+                aria-pressed={theme === 'light'}
                 className={`flex items-center gap-2 rounded-lg border px-4 py-2 text-sm transition ${
                   theme === 'light'
                     ? 'border-primary bg-primary/10 text-primary'
@@ -126,7 +135,7 @@ export const Settings = () => {
               </button>
             </div>
             <p className="text-xs text-muted-foreground">
-              ערכת הנושא הכהה מומלצת. מצב בהיר זמין כשיפור עתידי.
+              הבחירה מוחלת מיד ונשמרת אוטומטית במחשב זה.
             </p>
           </div>
 

@@ -39,7 +39,7 @@ export const Sidebar = ({ open, onClose }: SidebarProps) => {
           </div>
           <button
             onClick={onClose}
-            className="rounded-md p-2 text-muted-foreground hover:bg-accent lg:hidden"
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent/15 hover:text-foreground lg:hidden"
             aria-label="סגור תפריט"
           >
             <X className="h-5 w-5" />

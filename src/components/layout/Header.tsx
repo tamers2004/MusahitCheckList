@@ -11,7 +11,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}
-          className="rounded-md p-2 text-muted-foreground hover:bg-accent lg:hidden"
+          className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent/15 hover:text-foreground lg:hidden"
           aria-label="פתח תפריט"
         >
           <Menu className="h-5 w-5" />
@@ -23,7 +23,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
 
       <div className="flex items-center gap-3">
         <button
-          className="relative rounded-md p-2 text-muted-foreground hover:bg-accent"
+          className="relative rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent/15 hover:text-foreground"
           aria-label="התראות"
         >
           <Bell className="h-5 w-5" />

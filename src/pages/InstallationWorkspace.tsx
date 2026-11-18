@@ -115,6 +115,23 @@ export const InstallationWorkspace = () => {
     await saveTaskNotes(id, taskId, notes);
   };
 
+  const handleSetAll = async (taskIds: string[], completed: boolean) => {
+    if (!id || !currentInstallation) return;
+    const newCompleted = new Set(completedTaskIds);
+    for (const taskId of taskIds) {
+      await saveTaskProgress(id, taskId, completed);
+      if (completed) newCompleted.add(taskId);
+      else newCompleted.delete(taskId);
+    }
+    const isAllDone =
+      applicableTaskIds.length > 0 &&
+      applicableTaskIds.every((tid) => newCompleted.has(tid));
+    const newStatus = isAllDone ? 'completed' : 'in_progress';
+    if (newStatus !== currentInstallation.status) {
+      await updateInstallation(id, { status: newStatus });
+    }
+  };
+
   if (isLoading && !currentInstallation) {
     return (
       <div className="mx-auto max-w-5xl space-y-4">
@@ -284,6 +301,7 @@ export const InstallationWorkspace = () => {
             warningsMap={warningsMap}
             onToggleTask={handleToggleTask}
             onSaveNotes={handleSaveNotes}
+            onSetAll={handleSetAll}
             defaultOpen={activeFilter !== 'all' || progress.percentage < 100}
           />
         ))}

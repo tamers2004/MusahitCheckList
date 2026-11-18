@@ -35,7 +35,7 @@ export const Sidebar = ({ open, onClose }: SidebarProps) => {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
               <span className="text-xs font-bold text-white">מ</span>
             </div>
-            <span className="text-lg font-bold tracking-tight">מוסהיט</span>
+            <span className="text-lg font-bold tracking-tight">מוסכית</span>
           </div>
           <button
             onClick={onClose}

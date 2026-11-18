@@ -4,6 +4,7 @@ import {
   TaskProgress,
   ApplicationSettings,
 } from '@/types/installation';
+import { normalizeInstallation } from './normalize';
 
 export class MusahitDatabase extends Dexie {
   installations!: Table<Installation, string>;
@@ -17,6 +18,21 @@ export class MusahitDatabase extends Dexie {
       taskProgress: 'id, installationId, taskId, completed',
       settings: 'id',
     });
+    this.version(2)
+      .stores({
+        installations: 'id, createdAt, updatedAt, status, garageName, garageNumber',
+        taskProgress: 'id, installationId, taskId, completed',
+        settings: 'id',
+      })
+      .upgrade((transaction) =>
+        transaction
+          .table('installations')
+          .toCollection()
+          .modify((installation) => {
+            const record = installation as unknown as Record<string, unknown>;
+            Object.assign(record, normalizeInstallation(record));
+          }),
+      );
   }
 }
 

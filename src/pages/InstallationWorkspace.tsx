@@ -14,7 +14,7 @@ import { calculateProgress, getTaskWarnings, formatDate } from '@/utils/progress
 import {
   GARAGE_CLASSIFICATION_LABELS,
   INSTALLATION_TYPE_LABELS,
-  WORKSTATION_COUNT_LABELS,
+  formatWorkstationCount,
 } from '@/data/installationTemplates';
 import { ChecklistSection } from '@/components/checklist/ChecklistSection';
 import { ProgressBar } from '@/components/checklist/ProgressBar';
@@ -199,11 +199,16 @@ export const InstallationWorkspace = () => {
                   {INSTALLATION_TYPE_LABELS[currentInstallation.installationType]}
                 </Badge>
                 <Badge variant="secondary">
-                  {WORKSTATION_COUNT_LABELS[currentInstallation.workstationCount]}
+                  {formatWorkstationCount(currentInstallation.workstationCount)}
                 </Badge>
                 <Badge variant="outline">
                   {GARAGE_CLASSIFICATION_LABELS[currentInstallation.garageClassification]}
                 </Badge>
+                {currentInstallation.manufacturer && (
+                  <Badge variant="outline">
+                    יצרן: {currentInstallation.manufacturer}
+                  </Badge>
+                )}
               </div>
             </div>
             <div className="flex gap-2">

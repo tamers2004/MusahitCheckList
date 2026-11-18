@@ -1,5 +1,13 @@
-export type InstallationType = 'new' | 'upgrade';
-export type WorkstationCount = 'single' | 'multiple';
+export type InstallationType =
+  | 'new'
+  | 'server_replacement'
+  | 'lite_upgrade'
+  | 'add_cp'
+  | 'upgrade'
+  | 'manufacturer_settings';
+
+export type WorkstationCount = number;
+export type WorkstationMode = 'single' | 'multiple';
 export type GarageClassification = 'regular' | 'authorized' | 'importer';
 export type InstallationStatus = 'in_progress' | 'completed';
 
@@ -11,6 +19,7 @@ export interface Installation {
   installationType: InstallationType;
   workstationCount: WorkstationCount;
   garageClassification: GarageClassification;
+  manufacturer: string;
   installationDate: string;
   notes: string;
   status: InstallationStatus;
@@ -25,6 +34,7 @@ export interface InstallationFormData {
   installationType: InstallationType;
   workstationCount: WorkstationCount;
   garageClassification: GarageClassification;
+  manufacturer: string;
   installationDate: string;
   notes: string;
 }

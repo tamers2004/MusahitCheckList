@@ -1,13 +1,12 @@
 import {
   InstallationType,
-  WorkstationCount,
   GarageClassification,
 } from '@/types/installation';
 import { CHECKLIST_SECTIONS, CHECKLIST_TASKS, getApplicableTasks } from '@/data/checklist';
 
 export const calculateProgress = (
   installationType: InstallationType,
-  workstationCount: WorkstationCount,
+  workstationCount: number,
   garageClassification: GarageClassification,
   completedTaskIds: Set<string>,
 ): {
@@ -67,7 +66,7 @@ export const getTaskWarnings = (
   taskId: string,
   completedTaskIds: Set<string>,
   _installationType: InstallationType,
-  _workstationCount: WorkstationCount,
+  _workstationCount: number,
   _garageClassification: GarageClassification,
 ): string[] => {
   const task = CHECKLIST_TASKS[taskId];

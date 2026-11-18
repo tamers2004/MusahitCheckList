@@ -1,4 +1,5 @@
 import { db } from './database';
+import { normalizeInstallation } from './normalize';
 import {
   Installation,
   TaskProgress,
@@ -129,7 +130,7 @@ export const installationRepository = {
       taskProgress,
       settings: settings!,
       exportedAt: now(),
-      version: '1.0.0',
+      version: '2.0.0',
     };
   },
 
@@ -138,7 +139,14 @@ export const installationRepository = {
     await db.taskProgress.clear();
 
     if (data.installations.length > 0) {
-      await db.installations.bulkAdd(data.installations);
+      await db.installations.bulkAdd(
+        data.installations.map(
+          (installation) =>
+            normalizeInstallation(
+              installation as unknown as Record<string, unknown>,
+            ) as unknown as Installation,
+        ),
+      );
     }
 
     if (data.taskProgress.length > 0) {

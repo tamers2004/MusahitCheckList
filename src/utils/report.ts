@@ -3,7 +3,6 @@ import { CHECKLIST_SECTIONS, CHECKLIST_TASKS } from '@/data/checklist';
 import {
   GARAGE_CLASSIFICATION_LABELS,
   INSTALLATION_TYPE_LABELS,
-  WORKSTATION_COUNT_LABELS,
 } from '@/data/installationTemplates';
 import { formatDate } from './progress';
 
@@ -74,8 +73,9 @@ export const printInstallationReport = (
     <div><span>טכנאי</span><span>${installation.technician}</span></div>
     <div><span>תאריך התקנה</span><span>${formatDate(installation.installationDate)}</span></div>
     <div><span>סוג התקנה</span><span>${INSTALLATION_TYPE_LABELS[installation.installationType]}</span></div>
-    <div><span>מספר עמדות</span><span>${WORKSTATION_COUNT_LABELS[installation.workstationCount]}</span></div>
+    <div><span>מספר עמדות</span><span>${installation.workstationCount}</span></div>
     <div><span>סיווג מוסך</span><span>${GARAGE_CLASSIFICATION_LABELS[installation.garageClassification]}</span></div>
+    <div><span>הגדרת יצרן</span><span>${installation.manufacturer || '—'}</span></div>
     <div><span>אחוז השלמה</span><span>${percentage}%</span></div>
     <div><span>משימות שהושלמו</span><span>${completed.length} מתוך ${applicableTaskIds.length}</span></div>
   </div>

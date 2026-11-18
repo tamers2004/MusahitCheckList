@@ -1,6 +1,6 @@
 import type {
   InstallationType,
-  WorkstationCount,
+  WorkstationMode,
   GarageClassification,
 } from './installation';
 
@@ -15,10 +15,10 @@ export interface ChecklistTask {
 
   // Visibility rules
   showForInstallationType?: InstallationType[];
-  showForWorkstationCount?: WorkstationCount[];
+  showForWorkstationCount?: WorkstationMode[];
   showForGarageClassification?: GarageClassification[];
   hideForInstallationType?: InstallationType[];
-  hideForWorkstationCount?: WorkstationCount[];
+  hideForWorkstationCount?: WorkstationMode[];
   hideForGarageClassification?: GarageClassification[];
 
   // Dependencies
@@ -42,7 +42,7 @@ export interface ChecklistData {
   tasks: Record<string, ChecklistTask>;
 }
 
-export type { InstallationType, WorkstationCount, GarageClassification };
+export type { InstallationType, WorkstationMode, GarageClassification };
 
 export interface SectionProgress {
   sectionId: string;

@@ -1,6 +1,5 @@
 import {
   InstallationType,
-  WorkstationCount,
   GarageClassification,
 } from '@/types/installation';
 
@@ -8,17 +7,17 @@ export const installationRules = {
   canRestoreEmptyDatabase: (installationType: InstallationType) =>
     installationType === 'new',
 
-  canConfigureNetworkSharing: (workstationCount: WorkstationCount) =>
-    workstationCount === 'multiple',
+  canConfigureNetworkSharing: (workstationCount: number) =>
+    workstationCount > 1,
 
-  canConfigureSQLNetworkProtocol: (workstationCount: WorkstationCount) =>
-    workstationCount === 'multiple',
+  canConfigureSQLNetworkProtocol: (workstationCount: number) =>
+    workstationCount > 1,
 
-  canConfigureFirewall: (workstationCount: WorkstationCount) =>
-    workstationCount === 'multiple',
+  canConfigureFirewall: (workstationCount: number) =>
+    workstationCount > 1,
 
-  canConfigureMultiWorkstationMapping: (workstationCount: WorkstationCount) =>
-    workstationCount === 'multiple',
+  canConfigureMultiWorkstationMapping: (workstationCount: number) =>
+    workstationCount > 1,
 
   isAuthorizedGarage: (classification: GarageClassification) =>
     classification === 'authorized' || classification === 'importer',

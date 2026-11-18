@@ -4,7 +4,7 @@ import {
 } from '@/types/checklist';
 import {
   InstallationType,
-  WorkstationCount,
+  WorkstationMode,
   GarageClassification,
 } from '@/types/installation';
 
@@ -264,7 +264,13 @@ export const CHECKLIST_TASKS: Record<string, ChecklistTask> = {
     title: 'התקנה חדשה בלבד: שחזר בסיס נתונים ריק מ-F:\\EXE\\BLANCKDB',
     description: 'שחזור מסד נתונים ריק מהנתיב F:\\EXE\\BLANCKDB',
     showForInstallationType: ['new'],
-    hideForInstallationType: ['upgrade'],
+    hideForInstallationType: [
+      'upgrade',
+      'server_replacement',
+      'lite_upgrade',
+      'add_cp',
+      'manufacturer_settings',
+    ],
     order: 2,
     warning: 'יש לבצע משימה זו רק בהתקנה חדשה, לא בשדרוג.',
   },
@@ -750,9 +756,11 @@ export const CHECKLIST_TASKS: Record<string, ChecklistTask> = {
 
 export const getApplicableTasks = (
   installationType: InstallationType,
-  workstationCount: WorkstationCount,
+  workstationCount: number,
   garageClassification: GarageClassification,
 ): string[] => {
+  const workstationMode: WorkstationMode =
+    workstationCount > 1 ? 'multiple' : 'single';
   const applicableTaskIds: string[] = [];
 
   for (const section of CHECKLIST_SECTIONS) {
@@ -774,12 +782,12 @@ export const getApplicableTasks = (
       }
 
       // Workstation count rules
-      if (task.hideForWorkstationCount?.includes(workstationCount)) {
+      if (task.hideForWorkstationCount?.includes(workstationMode)) {
         show = false;
       }
       if (
         task.showForWorkstationCount &&
-        !task.showForWorkstationCount.includes(workstationCount)
+        !task.showForWorkstationCount.includes(workstationMode)
       ) {
         show = false;
       }

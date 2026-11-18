@@ -60,6 +60,7 @@ export const InstallationHistory = () => {
       installationType: source.installationType,
       workstationCount: source.workstationCount,
       garageClassification: source.garageClassification,
+      manufacturer: source.manufacturer,
       installationDate: new Date().toISOString().slice(0, 10),
       notes: source.notes,
     });
@@ -97,7 +98,11 @@ export const InstallationHistory = () => {
         <Select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
           <SelectOption value="all">כל סוגי ההתקנה</SelectOption>
           <SelectOption value="new">התקנה חדשה</SelectOption>
-          <SelectOption value="upgrade">שדרוג</SelectOption>
+          <SelectOption value="server_replacement">החלפת שרת</SelectOption>
+          <SelectOption value="lite_upgrade">שדרוג מלייט</SelectOption>
+          <SelectOption value="add_cp">הוספת ח"פ</SelectOption>
+          <SelectOption value="upgrade">שדרוג התקנה קיימת</SelectOption>
+          <SelectOption value="manufacturer_settings">הגדרות יצרן</SelectOption>
         </Select>
         <Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
           <SelectOption value="all">כל הסטטוסים</SelectOption>
@@ -160,6 +165,9 @@ export const InstallationHistory = () => {
                     <Badge variant="outline">
                       {GARAGE_CLASSIFICATION_LABELS[installation.garageClassification]}
                     </Badge>
+                    {installation.manufacturer && (
+                      <Badge variant="outline">{installation.manufacturer}</Badge>
+                    )}
                   </div>
                 </div>
               </Link>
